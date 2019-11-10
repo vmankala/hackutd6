@@ -18,29 +18,26 @@ for (var i = pageText.length - 1; i >= 0; i--) {
 // Add text to reader view
 for (var i = 0; i < pageText.length; i++) {
     document.body.innerHTML += "<br><br>";
-    for(var j = 0; j < pageText[i].length; j++) {
+    for (var j = 0; j < pageText[i].length; j++) {
         document.body.innerHTML += "<span id='" + i + "," + j + "'>" + pageText[i][j] + "</span>";
-        if(j != pageText[i].length - 1) {
+        if (j != pageText[i].length - 1) {
             document.body.innerHTML += ". ";
         }
     }
 }
 
 // Access Google Cloud NLP API
-/*for(var i = 0; i < pageText.length; i++) {
-    for(var j = 0; j < pageText[i].length; j++) {
-        $.ajax({
-            method: "POST",
-            url: "https://language.googleapis.com/v1/documents:analyzeSentiment?key=AIzaSyCMxvUvZBhUQ_w12V2GjENJkj_P_-G8-z4",
-            data: {
-                "encodingType": "UTF8",
-                "document": {
-                    "type": "PLAIN_TEXT",
-                    "content": pageText[i][j]
+for (var i = 0; i < pageText.length; i++) {
+    for (var j = 0; j < pageText[i].length; j++) {
+        var sentiment;
+        chrome.extension.sendRequest({ title: 'nlp', text: pageText[i][j], index: (i + "," + j) },
+            function (response) {
+                sentiment = response.nlp.documentSentiment.score;
+                magnitude = response.nlp.documentSentiment.magnitude;
+                console.log(document.getElementById(response.index).textContent, response.nlp);
+                if (sentiment <= -0.5) {
+                    document.getElementById(response.index).style = "background-color: #ff7d66;";
                 }
-            }
-        }).done((response) => {
-            console.log("Response to '" + pageText[i][j] + "'\n" + JSON.stringify(response));
-        });
+            });
     }
-}*/
+}
