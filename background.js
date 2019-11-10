@@ -12,7 +12,7 @@ chrome.extension.onRequest.addListener(
         if(request.title="nlp") {
             $.ajax({
                 method: "POST",
-                url: "https://language.googleapis.com/v1/documents:analyzeSentiment?key=haha",
+                url: "https://language.googleapis.com/v1/documents:analyzeSentiment?key=messagemeforakey",
                 contentType : "application/json; charset=utf-8",
                 data: JSON.stringify({
                     "encodingType": "UTF8",

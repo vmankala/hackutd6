@@ -36,7 +36,10 @@ for (var i = 0; i < pageText.length; i++) {
                 magnitude = response.nlp.documentSentiment.magnitude;
                 console.log(document.getElementById(response.index).textContent, response.nlp);
                 if (sentiment <= -0.5) {
-                    document.getElementById(response.index).style = "background-color: #ff7d66;";
+                    document.getElementById(response.index).style = "background-color: #ffcccb;";
+                }
+                if (sentiment >= 0.5) {
+                    document.getElementById(response.index).style = "background-color: #90ee90;";
                 }
             });
     }
